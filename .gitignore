@@ -1,0 +1,11 @@
+# Terraform generated files
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+
+# Crash logs
+crash.log
+
+# Variable files (if they contain secrets)
+*.auto.tfvars
