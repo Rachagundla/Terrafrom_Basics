@@ -9,3 +9,6 @@ crash.log
 
 # Variable files (if they contain secrets)
 *.auto.tfvars
+
+# Backup files
+*.bak

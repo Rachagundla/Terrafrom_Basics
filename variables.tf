@@ -12,9 +12,9 @@ variable "rg_Name" {
 }
 
 
-variable "storage-account-name" {
+variable "storage_account_name" {
   type        = string
-  default     = "devStorageAccount"
+  default     = "dev-storage-account"
   description = "description"
 }
 
@@ -23,5 +23,12 @@ variable "environment" {
   default     = ["dev", "test", "prod"]
   description = "List of deployment environments"
 }
+
+variable "storage_container_name" {
+  type        = string
+  default     = "storage-account-container-tfstate"
+  description = ""
+}
+
 
 
