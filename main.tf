@@ -26,7 +26,6 @@ resource "azurerm_storage_container" "storage_container" {
 
 module "network" {
   source = "./modules/network"
-
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   environment         = terraform.workspace
@@ -34,9 +33,23 @@ module "network" {
 
 module "virtual_machine" {
   source = "./modules/virtual_machine"
-
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  subnet_id           = module.network.subnet_id
   environment         = terraform.workspace
+  # Implicit Dependency:
+  # The VM module depends on the Network module because it
+  # consumes the subnet_id output from the Network module.
+   subnet_id = module.network.subnet_id
+
+  # Explicit Dependency:
+  # Ensures the entire Network module completes before
+  # Terraform starts creating resources in the VM module.
+  # This is optional here because the implicit dependency
+  # already exists, but it is useful for learning purposes.
+  # depends_on = [
+  #   module.network
+  # ]
+
 }
+
+
