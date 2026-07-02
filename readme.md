@@ -50,6 +50,11 @@ terraform workspace select dev
 # Delete workspace
 terraform workspace delete dev
 
+
+# Configuring and assigning the tfvar file at runtime
+terraform plan -var-file="environments/dev.tfvars"
+
+
 ===========================================================
 Terraform State
 ===========================================================

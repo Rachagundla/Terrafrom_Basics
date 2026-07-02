@@ -1,7 +1,7 @@
 # variables are declaring with default value
 variable "rg_Location" {
   type        = string
-  default     = "East US"
+  default     = "Central India"
   description = "Resource group location"
 }
 

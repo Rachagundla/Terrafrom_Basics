@@ -14,7 +14,7 @@
 # ============================================================================
 
 # Example:
-# rg_Name              = "rg-dev"
-# rg_Location          = "Central India"
-# storage_account_name = "devstorage001"
+rg_Name              = "rg-dev"
+rg_Location          = "Central India"
+storage_account_name = "pavandevstorage001"
 # vm_size              = "Standard_B1s"
