@@ -25,35 +25,35 @@ resource "azurerm_storage_container" "storage_container" {
 
 
 module "network" {
-  source = "./modules/network"
+  source              = "./modules/network"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   environment         = terraform.workspace
 }
 
-module "virtual_machine" {
-  source = "./modules/virtual_machine"
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
-  environment         = terraform.workspace
-  # Implicit Dependency:
-  # The VM module depends on the Network module because it
-  # consumes the subnet_id output from the Network module.
-   subnet_id = module.network.subnet_id
+# module "virtual_machine" {
+#   source = "./modules/virtual_machine"
+#   resource_group_name = azurerm_resource_group.rg.name
+#   location            = azurerm_resource_group.rg.location
+#   environment         = terraform.workspace
+#   # Implicit Dependency:
+#   # The VM module depends on the Network module because it
+#   # consumes the subnet_id output from the Network module.
+#    subnet_id = module.network.subnet_id
 
-  # Explicit Dependency:
-  # Ensures the entire Network module completes before
-  # Terraform starts creating resources in the VM module.
-  # This is optional here because the implicit dependency
-  # already exists, but it is useful for learning purposes.
-  depends_on = [
-    module.network
-  ]
-}
+#   # Explicit Dependency:
+#   # Ensures the entire Network module completes before
+#   # Terraform starts creating resources in the VM module.
+#   # This is optional here because the implicit dependency
+#   # already exists, but it is useful for learning purposes.
+#   depends_on = [
+#     module.network
+#   ]
+# }
 
 
-module "load_balancer"{
-   source = "./modules/load_balancer"
+module "load_balancer" {
+  source = "./modules/load_balancer"
 
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
@@ -62,6 +62,32 @@ module "load_balancer"{
   # Explicit dependency
   depends_on = [
     module.network,
-    module.virtual_machine
+    # module.virtual_machine
+  ]
+}
+
+# Database Module
+module "database" {
+  source = "./modules/database"
+
+  resource_group_name               = azurerm_resource_group.rg.name
+  location                          = azurerm_resource_group.rg.location
+  environment                       = terraform.workspace
+  postgresql_administrator_login    = var.postgresql_administrator_login
+  postgresql_administrator_password = var.postgresql_administrator_password
+}
+
+# Key Vault Module
+module "key_vault" {
+  source = "./modules/key_vault"
+
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  environment         = terraform.workspace
+  db_password_name    = var.db_password_name
+  db_password_value   = var.db_password_value
+  tenant_id           = data.azurerm_client_config.current.tenant_id
+  depends_on = [
+    module.database
   ]
 }

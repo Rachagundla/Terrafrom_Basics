@@ -30,5 +30,19 @@ variable "storage_container_name" {
   description = ""
 }
 
+variable "postgresql_administrator_login" {
+  type = string
+}
 
+variable "postgresql_administrator_password" {
+  type = string
+}
+
+variable "db_password_name" {
+  type = string
+}
+
+variable "db_password_value" {
+  type = string
+}
 
