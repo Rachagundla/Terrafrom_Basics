@@ -4,24 +4,24 @@ resource "azurerm_resource_group" "rg" {
   location = var.rg_Location
 }
 
-#Storage Account names must be globally unique and no hypen,spaces,caps
-resource "azurerm_storage_account" "storage_account" {
-  name                     = var.storage_account_name
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
+# #Storage Account names must be globally unique and no hypen,spaces,caps
+# resource "azurerm_storage_account" "storage_account" {
+#   name                     = var.storage_account_name
+#   resource_group_name      = azurerm_resource_group.rg.name
+#   location                 = azurerm_resource_group.rg.location
+#   account_tier             = "Standard"
+#   account_replication_type = "LRS"
 
-  tags = {
-    environment = var.environment[0]
-  }
-}
+#   tags = {
+#     environment = var.environment[0]
+#   }
+# }
 
-resource "azurerm_storage_container" "storage_container" {
-  name                  = var.storage_container_name
-  storage_account_name  = azurerm_storage_account.storage_account.name
-  container_access_type = "private"
-}
+# resource "azurerm_storage_container" "storage_container" {
+#   name                  = var.storage_container_name
+#   storage_account_name  = azurerm_storage_account.storage_account.name
+#   container_access_type = "private"
+# }
 
 module "network" {
   source              = "./modules/network"
@@ -127,7 +127,6 @@ module "monitor" {
 # Azure Automation Account for testing the github action to run the pipeline
 module "automation" {
   source = "./modules/automation_account"
-
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   environment         = terraform.workspace
