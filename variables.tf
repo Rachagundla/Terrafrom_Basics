@@ -45,4 +45,3 @@ variable "db_password_name" {
 variable "db_password_value" {
   type = string
 }
-

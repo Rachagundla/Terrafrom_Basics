@@ -23,7 +23,6 @@ resource "azurerm_storage_container" "storage_container" {
   container_access_type = "private"
 }
 
-
 module "network" {
   source              = "./modules/network"
   resource_group_name = azurerm_resource_group.rg.name
@@ -90,4 +89,46 @@ module "key_vault" {
   depends_on = [
     module.database
   ]
+}
+
+
+# Service bus
+module "service_bus" {
+  source = "./modules/service_bus"
+
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  environment         = terraform.workspace
+}
+
+
+# azure kubernet services
+module "aks" {
+
+  source = "./modules/aks"
+
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  environment         = terraform.workspace
+
+  depends_on = [
+    module.network
+  ]
+}
+
+# monitor
+module "monitor" {
+  source = "./modules/monitor"
+
+  resource_group_name = azurerm_resource_group.rg.name
+  environment         = terraform.workspace
+}
+
+# Azure Automation Account for testing the github action to run the pipeline
+module "automation" {
+  source = "./modules/automation_account"
+
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  environment         = terraform.workspace
 }
