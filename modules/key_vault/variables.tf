@@ -11,12 +11,12 @@ variable "db_password_name" {
 }
 
 variable "db_password_value" {
-  type = string
+  type      = string
   sensitive = true
 }
 
-variable environment {
-  type        = string
+variable "environment" {
+  type = string
 }
 
 variable "tenant_id" {

@@ -11,10 +11,10 @@ variable "postgresql_administrator_login" {
 }
 
 variable "postgresql_administrator_password" {
-  type = string
+  type      = string
   sensitive = true
 }
 
-variable environment {
-  type        = string
+variable "environment" {
+  type = string
 }

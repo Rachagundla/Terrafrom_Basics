@@ -14,11 +14,11 @@
 # ============================================================================
 
 # Example:
-rg_Name              = "rg-dev"
-rg_Location          = "Central India"
-storage_account_name = "pavandevstorage001"
-postgresql_administrator_login = "dbadmin"
+rg_Name                           = "rg-dev"
+rg_Location                       = "Central India"
+storage_account_name              = "pavandevstorage001"
+postgresql_administrator_login    = "dbadmin"
 postgresql_administrator_password = "Password@123"
-db_password_name = "DatabasePassword"
-db_password_value = "Password@123"
+db_password_name                  = "DatabasePassword"
+db_password_value                 = "Password@123"
 # vm_size              = "Standard_B1s"

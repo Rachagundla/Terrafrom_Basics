@@ -4,9 +4,9 @@ resource "azurerm_resource_group" "backend" {
 }
 
 resource "azurerm_storage_account" "backend" {
-  name                     = "pavantfstate001"   # Change if already taken
-  resource_group_name      = azurerm_resource_group.backend.name
-  location                 = azurerm_resource_group.backend.location
+  name                = "pavantfstate001" # Change if already taken
+  resource_group_name = azurerm_resource_group.backend.name
+  location            = azurerm_resource_group.backend.location
 
   account_tier             = "Standard"
   account_replication_type = "LRS"

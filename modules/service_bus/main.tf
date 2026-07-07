@@ -8,7 +8,7 @@ resource "azurerm_servicebus_namespace" "sb" {
 resource "azurerm_servicebus_queue" "orders" {
   name         = "orders"
   namespace_id = azurerm_servicebus_namespace.sb.id
-#   auto_delete_on_idle = "P7D"
-# default_message_ttl = "P14D"
-# duplicate_detection_history_time_window = "PT10M"
+  #   auto_delete_on_idle = "P7D"
+  # default_message_ttl = "P14D"
+  # duplicate_detection_history_time_window = "PT10M"
 }
