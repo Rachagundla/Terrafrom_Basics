@@ -4,6 +4,7 @@ resource "azurerm_key_vault" "vault" {
   location            = var.location
   sku_name            = "standard"
   tenant_id           = var.tenant_id
+  enable_rbac_authorization = true
 }
 
 resource "azurerm_key_vault_secret" "dbpassword" {
