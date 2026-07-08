@@ -65,31 +65,49 @@ module "load_balancer" {
   ]
 }
 
-# Database Module
+
+
+data "azurerm_key_vault" "kv" {
+  name                = "abcd-${terraform.workspace}-keyvault"
+  resource_group_name = "rg-tfstate"
+}
+
+data "azurerm_key_vault_secret" "postgres_admin" {
+  name         = "PostgreSQLAdmin"
+  key_vault_id = data.azurerm_key_vault.kv.id
+}
+
+data "azurerm_key_vault_secret" "postgres_password" {
+  name         = "PostgreSQLPassword"
+  key_vault_id = data.azurerm_key_vault.kv.id
+}
+
+# Database Module where creating the postgresqlDB
 module "database" {
   source = "./modules/database"
 
   resource_group_name               = azurerm_resource_group.rg.name
   location                          = azurerm_resource_group.rg.location
   environment                       = terraform.workspace
-  postgresql_administrator_login    = var.postgresql_administrator_login
-  postgresql_administrator_password = var.postgresql_administrator_password
+  postgresql_administrator_login    = data.azurerm_key_vault_secret.postgres_admin.value
+  postgresql_administrator_password = data.azurerm_key_vault_secret.postgres_password.value
 }
+
 
 # Key Vault Module
-module "key_vault" {
-  source = "./modules/key_vault"
+# module "key_vault" {
+#   source = "./modules/key_vault"
 
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
-  environment         = terraform.workspace
-  db_password_name    = var.db_password_name
-  db_password_value   = var.db_password_value
-  tenant_id           = data.azurerm_client_config.current.tenant_id
-  depends_on = [
-    module.database
-  ]
-}
+#   resource_group_name = azurerm_resource_group.rg.name
+#   location            = azurerm_resource_group.rg.location
+#   environment         = terraform.workspace
+#   db_password_name    = var.db_password_name
+#   db_password_value   = var.db_password_value
+#   tenant_id           = data.azurerm_client_config.current.tenant_id
+#   depends_on = [
+#     module.database
+#   ]
+# }
 
 
 # Service bus
