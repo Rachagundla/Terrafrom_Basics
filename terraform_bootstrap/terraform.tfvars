@@ -3,5 +3,5 @@
 environment                       = "dev"
 resource_group_name               = "rg-tfstate"
 location                          = "Central India"
-postgresql_administrator_login    = "dbadmin"
-postgresql_administrator_password = "Password@123"
+# postgresql_administrator_login    = "dbadmin"
+# postgresql_administrator_password = "Password@123"
