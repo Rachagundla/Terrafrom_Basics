@@ -2,9 +2,9 @@
 #   type = string
 # }
 
-variable "db_password_value" {
-  type = string
-}
+# variable "db_password_value" {
+#   type = string
+# }
 
 variable "resource_group_name" {
   type = string

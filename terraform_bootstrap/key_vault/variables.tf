@@ -10,10 +10,10 @@ variable "location" {
 #   type = string
 # }
 
-variable "db_password_value" {
-  type      = string
-  sensitive = true
-}
+# variable "db_password_value" {
+#   type      = string
+#   sensitive = true
+# }
 
 variable "environment" {
   type = string

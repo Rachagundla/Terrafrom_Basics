@@ -26,7 +26,7 @@ module "key_vault" {
   location                = azurerm_resource_group.backend.location
   environment             = var.environment
   db_password_name        = "DatabasePassword"
-  db_password_value       = var.db_password_value
+  db_password_value       = "Password@123"
   postgres_admin_name     = var.postgres_admin_name
   postgres_admin_password = var.postgres_admin_password
   tenant_id               = data.azurerm_client_config.current.tenant_id
