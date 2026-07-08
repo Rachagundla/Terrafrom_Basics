@@ -40,6 +40,9 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
 
+      - name: Select Workspace
+        run: terraform workspace select dev || terraform workspace new dev
+
       - name: Terraform Plan
         run: terraform plan -var-file="environments/dev.tfvars"
 
