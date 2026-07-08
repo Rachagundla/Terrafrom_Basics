@@ -1,4 +1,4 @@
-db_password_name                  = "DatabasePassword"
+# db_password_name                  = "DatabasePassword"
 db_password_value                 = "Password@123"
 environment                       = "dev"
 resource_group_name               = "rg-tfstate"

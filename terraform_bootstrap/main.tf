@@ -25,7 +25,7 @@ module "key_vault" {
   resource_group_name     = azurerm_resource_group.backend.name
   location                = azurerm_resource_group.backend.location
   environment             = var.environment
-  db_password_name        = var.db_password_name
+  db_password_name        = "DatabasePassword"
   db_password_value       = var.db_password_value
   postgres_admin_name     = var.postgres_admin_name
   postgres_admin_password = var.postgres_admin_password

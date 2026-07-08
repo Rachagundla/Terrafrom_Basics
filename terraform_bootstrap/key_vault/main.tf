@@ -8,7 +8,7 @@ resource "azurerm_key_vault" "vault" {
 }
 
 resource "azurerm_key_vault_secret" "dbpassword" {
-  name         = var.db_password_name
+  name         = "DatabasePassword"
   value        = var.db_password_value
   key_vault_id = azurerm_key_vault.vault.id
 

@@ -38,9 +38,9 @@ variable "postgresql_administrator_password" {
   type = string
 }
 
-variable "db_password_name" {
-  type = string
-}
+# variable "db_password_name" {
+#   type = string
+# }
 
 variable "db_password_value" {
   type = string
