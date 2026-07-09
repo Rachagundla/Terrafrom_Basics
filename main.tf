@@ -156,5 +156,5 @@ module "monitor" {
 module "automation" {
   source              = "./modules/automation_account"
   resource_group_name = azurerm_resource_group.rg.name
-  environment         = terraform.workspace 
+  environment         = terraform.workspace
 }
