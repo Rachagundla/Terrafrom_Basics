@@ -45,3 +45,7 @@ variable "storage_container_name" {
 # variable "db_password_value" {
 #   type = string
 # }
+
+variable "alert_email" {
+  type = string
+}

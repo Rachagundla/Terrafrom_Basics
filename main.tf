@@ -137,15 +137,24 @@ module "aks" {
 
 # monitor
 module "monitor" {
-  source = "./modules/monitor"
 
+  source              = "./modules/monitor"
   resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
   environment         = terraform.workspace
+  postgres_id         = module.database.postgres_id
+  servicebus_id       = module.service_bus.servicebus_id
+  keyvault_id         = data.azurerm_key_vault.kv.id
+  alert_email         = "pavankalyanachari1720@gmail.com"
+  depends_on = [
+    module.database,
+    module.service_bus
+  ]
 }
 
 # # Azure Automation Account for testing the github action to run the pipeline
-# module "automation" {
-#   source              = "./modules/automation_account"
-#   resource_group_name = azurerm_resource_group.rg.name
-#   environment         = terraform.workspace 
-# }
+module "automation" {
+  source              = "./modules/automation_account"
+  resource_group_name = azurerm_resource_group.rg.name
+  environment         = terraform.workspace 
+}
