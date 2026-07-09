@@ -122,18 +122,18 @@ module "service_bus" {
 
 
 # azure kubernet services
-module "aks" {
+# module "aks" {
 
-  source = "./modules/aks"
+#   source = "./modules/aks"
 
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
-  environment         = terraform.workspace
+#   resource_group_name = azurerm_resource_group.rg.name
+#   location            = azurerm_resource_group.rg.location
+#   environment         = terraform.workspace
 
-  depends_on = [
-    module.network
-  ]
-}
+#   depends_on = [
+#     module.network
+#   ]
+# }
 
 # monitor
 module "monitor" {
